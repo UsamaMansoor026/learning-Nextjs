@@ -1,0 +1,78 @@
+== Routing in Next js App ==
+Routing simply means to move from one url to another. In React we have to install third party package 'react-router' for routing but in next.js we have pre-installed router called next.js router.
+
+Next.js follows the folder routing means the name of the folder becomes the end-point of the route. There are 2 important points to consider before implementing routing.
+
+1. The routing folder must be inside of the "app" folder.
+2. The routing folder must contain the page.js or page.tsx file.
+
+If we have a page.js or page.tsx file directly inside the "app" folder then that becomes the home ('/') route.
+
+== Types of routing ==
+There are two types of routing 'Static' and 'Dynamic'.
+
+1. Static: means we have to create a folder in the 'app' folder that becomes the route.
+2. Dynamic: means we have to create a folder in the 'app' folder and the name of the folder must be inside square [] brackets, [] brackets shows the dynamic portion of the URL and the name of folder becomes the routing parameter, suppose we have a route http://example.com/products/:productId then the name of dynamic folder becomes [productId] and we can access the parameter like this:
+
+export default async function NameOffunction({params}) {
+    (await params).productId
+}
+
+To access the parameter we have to await the params, and the function must be async function.
+
+= Nested Dynamic Routes =
+Nested Dynamic Routes is the route inside the dynamic route. Lets think of a scenario where we have to show the specific review of a specific product, so the url is look something like this:
+http://example.com/products/32/reviews/26
+so we have already implemented that http://example.com/products/32 part of the url so in order to achieve this we have to create a new folder named 'reviews' inside [productId] and create a folder named '[reviewId]' inside the reviews folder, by following these steps we can achieve nexted dynamic route shitt.
+
+== catch-all Segments ==
+Here is the another scenario where we are going to create a documentation webpage whrer we have 5 features and each feature have 5 concepts so the url is look something like this
+
+http://example.com/docs/feature1/concept1
+http://example.com/docs/feature1/concept2
+
+http://example.com/docs/feature2/concept1
+http://example.com/docs/feature2/concept2
+
+... so one
+
+if we follow the previous nested dynamic route concept we have to create a docs folder then a nested dynamic folder with [] and another dynamic folder with [], but with catch-all segments concept we can catch all the routes that share common url part like in above case /docs is the common url part.
+
+So we have to create a folder named 'docs' inside app folder and then create a nested folder with special naming convention [...slug] this catches all the routed that share a /docs url part.
+
+= Optional catch-all segments =
+
+means if we want to visit http://example.com/docs then we get 404 error because we dont have a page.js or page.tsx file inside the docs folder, to correct this we have 2 ways:
+
+1. First way is to create a page.js file in the docs folder
+2. Second way id to make catch-all segments optional by wrapping the name of catch-all segments in the [] so the name becomes [[...slug]]
+
+=== Custom not-found page (404) ===
+simply create a file named 'not-found.js' or 'not-found.tsx' inside the app folder
+
+=> we can also implement not-found page for our specific part of the utl, suppose we have only 1000 products reviews and if some visit 1001 then we have to show a custom not-found page.
+
+First import and call the not-found from "next/navigation" in [reviewId] folder
+
+not-found page does not accept params directly, but what if we want to show a custom not-found with the message comming from the route. Then we can use Next.js hook usePathname() from next/navigation, by using the hook we need to make the component as client-side component because by default all the components are server-side component by injecting "use client" on top of the file.
+
+=== File Colocation ===
+as we all know that next.js follows the file based routing and the route is only publically accessible if that folder contains page.js or page.tsx file, and that component must be default exported if not then we got an error.
+
+File colocation simply means having the file inside the route folder that don't become the route.
+
+== Private Folders ==
+Private folder is the one that dont include in the file routing system, and only be used for internal stuff. We can make a folder private my adding the underscore (_) at the start of the folder name.
+
+If we want to add underscore (_) into our URL we can use %5F, thats the URL-encoded version of the underscore.
+
+== Route Groups ==
+As the name implies, route group means grouping the similar routes together for better developer experience. for eg, we are implementing an authentication and we have Register, Login and Forgot password routes, one way is to create 3 folders in app folder but it makes the codebase messy and not recommended when you are working in the team environment. Other way is to make group of these routes my wrapping these folder with the another folder that have name inside the () parenthesis
+
+(auth)
+    register
+        page.js
+    login
+        page.js
+    forgotPassword
+        page.js

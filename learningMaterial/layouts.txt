@@ -1,0 +1,50 @@
+A layout is UI that are shared between multiple pages in the app like the structure of a web page with header then content then footer. Header and footer remains consistent throughout the app only the content portion changes based on the routes, this can be achieved by layouts.
+
+== How to create a layout ==
+Its very simple just create a file name "layout.js" or "layout.tsx" and default export a React component. That component takes a children prop that later on will be populated with the content.
+
+Every next.js app must have a root layout that lives directly inside the app folder.
+
+=== Here's how layout shitt works ===
+First when we visit our root url if development that should be the localhost:3000 then the first things the painted is the layout.js file that lives inside the app folder, after that page.js file painted. Then if we visit some other route then the page.js file is replaced by the page.js file that are inside of that route folder.
+
+== We can nested the layout in our app means if we want special layout that only lives in certain route we can do that by simply create a layout.js file inside that route folder ==
+
+== Multiple Root Layouts ==
+Suppose we want to show layout in every page except the Register and Login page so can do that by Root group concept. So i am going to create a folder with () for every other page and one for auth is already created.
+
+================================================================
+== Routing MetaData Object ==
+Metadata in Next.js is a powerful feature that let us define metadata for  each page and ensures our content looks great when its shared or indexed by the search engine.
+
+There are two ways to handle metadata in layout.js or page.js file:
+1. export the static metadata object
+2. export the dynamic generateMetadata function
+
+=== Configuring the Metadata ===
+RULES:
+metadata can be exported by the layout.js or page.js both files, layout metadata applied to all its pages while page.js metadata only applies to that page.
+
+metadata follows the top-down order, staring from the root level then goes down.
+
+when metadata exists in multiple places along the route then the metadata is automatically merged together, page.js metadata overrides the layout metadata for matching properties.
+
+We cant use static and generateMetadata in same directory or say file.
+
+================================================================
+Limitation of Metadata: 
+One important thing we can not use metadata in client component, means if we use "use client" in any file we cant weite metadata in that file.
+
+But there is a way to do that, keep the client side code in separate component file and imported that file in other server component and use metadata there.
+
+== Title in metadata ==
+Title in metadata defines the title of the document. We can pass string or objecct in title property.
+
+String: 
+title: "Titles goes here"
+
+Object:
+In objecct there are 3 powerful options
+1. default == Fallback value, Default means the default title if the chhil dont specify their own title.
+2. template == It applies to the child routes, we can set the prefix and suffix to the title and use "%s" where we want to use the title comming from the child route
+3. absolute == It nullifies the template and use only the title that define in child route.

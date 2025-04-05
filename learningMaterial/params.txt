@@ -1,0 +1,30 @@
+Params: 
+Is a promise that resolve to an object containing the dynamic route parameters like (id or others) for a given URL.
+
+SearchParams:
+Is a promise that resolve to an object containing the query parameters (start with ?) like (filter or sorting) for a given URL.
+
+We cannot use async default function in client side components, so in order to access the params and searchParams we need to use the React hook named use immport from react and wrap params and searchParams with use hook like
+
+use(params) and use(searchParams)
+
+=====
+page.js or page.tsx has access to both the params and searchParams BUT the layout.js or layout.tsx has access only access to params
+=====
+
+
+================================================================
+NAVIGATING PROGRAMMATICALLY:
+think like a scenario where user submit the form and we want to redirect the user to another page for example the user is loggin in to our website and after submitting the form we have to authenticate the user and redirect to the home page.
+
+We have to use the useRouter hook comming from the next/navigation and function we are going to use is push
+first we have to create a router
+const router = useRouter()
+
+router.push("/path-to-redirect")
+
+and only works in Client Component.
+
+push method is pushing the path to the path history and replace method replacing the path.
+
+We can also navigating the user programmatically using the redirect from next/navigation

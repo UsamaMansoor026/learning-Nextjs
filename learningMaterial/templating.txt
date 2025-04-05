@@ -1,0 +1,8 @@
+Templates are similar to the layouts that shared a UI between pages means in layout we can inject or create something that we want to shared between pages we can do that.
+
+But the main difference between template and layout is that:
+when we move from one url to another layout dont give us the fresh UI if we have a common input field that field value remains when we move to other URL. BUT in template we got the fresh UI means the value of the input field is discarded, DOM elements are re-created, states are cleared and effects are re-synchronized.
+
+We can creare a template by creating a file named template.js or template.tsx and export default React component, and it accepts a children prop like layout to render the nested route segments.
+
+We can use layout and template together, but layout painted first and the children in layout is replaced by the template component and children in template is replaced by the page.js

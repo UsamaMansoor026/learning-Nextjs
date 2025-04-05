@@ -1,0 +1,10 @@
+among all the other Next.js special files like page, template, layout and not-found so far, there is another special file named loading.js or loading.tsx that handles the loading when the component is waiting got the content to load in specific route segment.
+
+The loading state appear instantly when navigating, letting user know that the application is responsive and actively loading content.
+
+The loading.js file automatically wraps the page.js file and all its nesetd children.
+
+===== loading.js file Benefits =====
+1. It gives users immediately feedback when they navigating somewhere new.
+2. It makes the application responsive and users know that their clicks is actually working.
+3. Next.js keeps shared layout interactive while new content loads, means Users can still use things like sidebar and navigation menus even if the main content is still loading 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Footer from "../_components/Footer";
 import "./auth.css";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 /* export const metadata = {
   title: "Create Next App",
@@ -26,9 +27,16 @@ const navLinks = [
 
 export default function AuthLayout({ children }) {
   const pathName = usePathname();
+  const [name, setName] = useState("");
   return (
     <html lang="en">
       <body cz-shortcut-listen="false">
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="border border-white"
+        />
         <ul>
           {navLinks.map((link) => {
             const isActive =

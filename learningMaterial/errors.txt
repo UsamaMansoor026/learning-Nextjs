@@ -1,0 +1,36 @@
+error.js or error.tsx is also a special file that handles the error efficiently.
+
+error.js or error.tsx file must be a client component means we have to add the "use client" directive in top of the file.
+
+This file accept the error object of type Error and we can dispaly the erorr by error.message and thats the same message we pass in reviewId page.
+
+Here's what make error.js file powerful:
+1. It automatically wraps the route segments or its nested children in React Error boundary.
+
+2. We can create a custom UI for errors.
+
+3. It isolates errors to affected segments while keeping the rest of the app functional.
+
+WE can recover from the error by reseting the page.js file that causing the error to let the user try again type thing. We can do by using the reset prop in error.js file which is the function that returns the void.
+
+errors file always bubble up to the closed parent that have error boundary defined or simply say contains error.js file.
+
+An error.js file not just handles of its own folder but also its nested folders.
+
+
+We cannot handle errors in layout file because layout file comes first in Components hierarchy, but we can handle layout errors by placing the error.js file in parent.
+
+What if error occurs in root layout we cannot handle that because we dont have a parent of root layout. So there is a way we can do that by creating a special file global-error.js file adjacent to the layout.js file.
+
+global-error only works in production mode and requires its own html and body tag.
+
+===== Here is the hierarchy of special files =====
+<Layout>
+    <Template>
+        <ErrorBoundary fallback={<Error />}>
+            <Suspense fallback={<Loading />}>
+                <Page />
+            </Suspense>
+        </ErrorBoundary>
+    </Template>
+</Layout>

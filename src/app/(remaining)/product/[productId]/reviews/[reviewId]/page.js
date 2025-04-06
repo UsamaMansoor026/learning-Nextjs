@@ -7,11 +7,21 @@
 */
 
 import { notFound, redirect } from "next/navigation";
+
+const randomNumber = (count) => {
+  return Math.floor(Math.random() * count);
+};
+
 export default async function ReviewById({ params }) {
   const { reviewId, productId } = await params;
   if (parseInt(reviewId) > 1000) {
     // notFound();
     redirect("/product");
+  }
+
+  const rand = randomNumber(2);
+  if (rand === 1) {
+    throw new Error("Error loading review");
   }
   return (
     <h1>

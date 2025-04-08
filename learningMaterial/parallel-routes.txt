@@ -1,0 +1,53 @@
+Parallel routes means render multiple pages simultaneously in one layout.
+
+Lets think of a scenario where we have to build a complex dashboard with users analytics, revenue and notifications.
+This can be achieved by the components, we can create 3 components and render in layout, but the efficient way is to do with parallel routes.
+
+In order to create a parallel route the name of route folder start with the @. So lets create a parent folder "complex-dashboard" and the 3 parallel route folders with page.js file inside.
+
+The parallel route folders automatically becomes the prop of the layout, we dont have to import these, just pass them to the props and we are all set.
+
+The parallel route also called slots.
+
+IMPORTANT THING is that the slots or parallel route is not a route segments means if you try to navigate "complex-dashboard/users" or "complex-dashboard/@users" we get not-found page.
+
+================= EXAMPLE OF PARALLEL ROUTE ==================
+export default function DashboardLayout({
+  children,
+  users,
+  revenue,
+  notifications,
+}) {
+  return (
+    <div>
+      <div>{children}</div>
+
+      <div className="flex">
+        <div className="flex flex-col">
+          <div>{users}</div>
+          <div>{revenue}</div>
+        </div>
+        <div className="flex">{notifications}</div>
+      </div>
+    </div>
+  );
+}
+
+=============================
+Parallel routes Use Cases:
+1. Dashboard with multiple sections.
+2. Split-view Interfaces.
+3. Multi-pane Layouts.
+4. Complex Admin Interfaces.
+
+Parallel Routes Benefits:
+1. Independent Route Handling
+    Each slot in layout like in our example Users, Revenue and Notifications can handle its own loading and error states.
+    This granular controls is particularly useful in scenarios where different slots load at varying speed or encounter unique errors.
+
+2. Sub-Navigation
+    Each slot works as a mini application with its own navigation and state management. User can interact with these navigations without disturbing the whole application.
+
+    Lets take a scenario where the users navigate between notifications and archived notifications.
+
+    SO lets create a new routing folder "archived" inside the @notifications folder.
